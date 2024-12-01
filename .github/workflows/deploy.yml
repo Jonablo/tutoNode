@@ -1,0 +1,27 @@
+name: Deploy to EC2
+
+on:
+    workflow_run:
+       workflows: ["Build and Push Docker Image"]
+       types:
+        - completed
+
+
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Set up SSh keys
+           run: |
+             echo "${{secrets.EC2_SSH_KEY}}" > private_key.pem
+             chmod 400 private_key.pem
+
+         - name: Connect to EC2 and deploy
+           run: |
+             ssh -i "private_key.pem" ec2-user@ec2-54-197-9-248.compute-1.amazonaws.com
+             sudo yum update -y
+             sudo amazon-linux-extras install docker
+             sudo service docker start
+
+
+
