@@ -8,8 +8,11 @@ on:
 
 
 jobs:
+
     deploy:
+
       runs-on: ubuntu-latest
+
       steps:
          - name: Set up SSh keys
            run: |
