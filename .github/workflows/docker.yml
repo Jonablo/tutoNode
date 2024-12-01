@@ -44,8 +44,8 @@ jobs:
          - name: Connect to EC2 and deploy
            run: |
              ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-52-87-168-29.compute-1.amazonaws.com << 'EOF'
-                 sudo dnf install -y docker
-                 sudo systemctl start docker
-                 sudo systemctl enable docker
-                 sudo dnf install -y jq
-              EOF
+                sudo dnf install -y docker
+                sudo systemctl start docker
+                sudo systemctl enable docker
+                sudo dnf install -y jq
+             EOF
