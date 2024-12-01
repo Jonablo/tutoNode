@@ -44,7 +44,7 @@ jobs:
 
          - name: Connect to EC2 and deploy
            run: |
-             ssh -i private_key.pem ec2-user@ec2-54-197-9-248.compute-1.amazonaws.com << 'EOF'
+             ssh -i private_key.pem ec2-user@ec2-52-87-168-29.compute-1.amazonaws.com << 'EOF'
               sudo yum update -y
               sudo amazon-linux-extras install docker
               sudo service docker start
