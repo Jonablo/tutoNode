@@ -49,7 +49,7 @@ jobs:
                  sudo dnf install -y docker
                  sudo systemctl start docker
                  sudo systemctl enable docker
-               fi
+                fi
                sudo dnf install -y jq
                LATEST_TAG=$(curl -s https://hub.docker.com/v2/repositories/${{ secrets.DOCKER_USERNAME }}/node-app/tags/?page_size=1 | jq -r '.results[0].name')
                docker pull ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
