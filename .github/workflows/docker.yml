@@ -51,9 +51,7 @@ jobs:
                   sudo systemctl enable docker
                 fi
                 sudo dnf install -y jq
-                sudo docker stop $(docker ps -q)
-                sudo docker rm $(docker ps -a -q)
-                sudo docker rmi $(docker images -q)
+                docker stop $(docker ps -q -f "publish=80")
                 LATEST_TAG=$(curl -s https://hub.docker.com/v2/repositories/${{ secrets.DOCKER_USERNAME }}/node-app/tags/?page_size=1 | jq -r '.results[0].name')
                 sudo docker pull ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
                 sudo docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
