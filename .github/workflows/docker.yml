@@ -44,14 +44,11 @@ jobs:
          - name: Connect to EC2 and deploy
            run: |
              ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-52-87-168-29.compute-1.amazonaws.com << 'EOF'
-                if ! command -v docker &> /dev/null
-                 then
-                 sudo dnf install -y docker
-                 sudo systemctl start docker
-                 sudo systemctl enable docker
-                fi
-               sudo dnf install -y jq
-               LATEST_TAG=$(curl -s https://hub.docker.com/v2/repositories/${{ secrets.DOCKER_USERNAME }}/node-app/tags/?page_size=1 | jq -r '.results[0].name')
-               docker pull ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
-               docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
+             sudo dnf install -y docker
+             sudo systemctl start docker
+             sudo systemctl enable docker
+             sudo dnf install -y jq
+             LATEST_TAG=$(curl -s https://hub.docker.com/v2/repositories/${{ secrets.DOCKER_USERNAME }}/node-app/tags/?page_size=1 | jq -r '.results[0].name')
+             docker pull ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
+             docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/node-app:$LATEST_TAG
              EOF
